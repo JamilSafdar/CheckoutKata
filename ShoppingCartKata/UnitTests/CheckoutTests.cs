@@ -1,7 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using NUnit.Framework;
+using ShoppingCartKata.UnitTests;
 
 namespace ShoppingCartKata
 {
@@ -46,23 +46,14 @@ namespace ShoppingCartKata
             Assert.AreEqual(expectedPrice, output);
 
         }
-    }
-
-    public class Checkout
-    {
-        List<string> itemList = new List<string>();
-
-        public decimal Scan(string item)
+        [Test]
+        public void GivenTwoDifferentItems_ReturnPrice()
         {
-            itemList.Add(item);
-            var discount = 0M;
-            var sum = itemList.Count * 0.5;
-            if (itemList.Count == 3)
-            {
-                discount = (decimal )sum * 0.13M;
-
-            }
-            return (decimal) sum - discount;
+            var item = "A99";
+            var expectedPrice = 0.80M;
+            _checkout.Scan("B15");
+            var output = _checkout.Scan(item);
+            Assert.AreEqual(expectedPrice, output);
         }
     }
 }
